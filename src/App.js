@@ -1,5 +1,3 @@
-// src/App.js (CÓDIGO COMPLETO E FINAL)
-
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -86,7 +84,7 @@ function App() {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:3001/api/analyze', formData, {
+      const response = await axios.post('api/analyze', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       const sorted = response.data.recommendations.sort((a, b) => (b.suitabilityScore || b.score) - (a.suitabilityScore || a.score));
@@ -96,7 +94,7 @@ function App() {
       setHasStoredResult(true);
       setIsResultModalOpen(true);
     } catch (err) {
-      setError('Ocorreu um erro ao analisar. Verifique o console e tente novamente.');
+      setError('Ocorreu um erro ao analisar. Tente novamente mais tarde.');
       console.error(err);
     } finally {
       setLoading(false);
