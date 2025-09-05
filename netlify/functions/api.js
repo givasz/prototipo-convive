@@ -1,5 +1,3 @@
-// netlify/functions/api.js (VERSÃO FINAL E ROBUSTA)
-
 const serverless = require('serverless-http');
 const express = require('express');
 const cors = require('cors');
@@ -56,7 +54,7 @@ app.post('/api/analyze', upload.single('resumeFile'), async (req, res) => {
     try {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
         
-        // --- PROMPT REFINADO PARA SER MAIS DIRETO ---
+        // --- PROMPT 
         const prompt = `
             TAREFA: Analisar um currículo e gerar uma resposta JSON.
             
@@ -93,7 +91,7 @@ app.post('/api/analyze', upload.single('resumeFile'), async (req, res) => {
         const response = await result.response;
         const cleanedText = response.text().replace(/^```json\s*|```\s*$/g, '').trim();
 
-        // --- TRATAMENTO DE ERRO MELHORADO ---
+        // --- TRATAMENTO DE ERRO ---
         try {
             const parsedResult = JSON.parse(cleanedText);
             res.json(parsedResult);
